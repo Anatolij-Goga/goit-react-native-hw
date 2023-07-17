@@ -62,7 +62,10 @@ export default function LoginScreen() {
   return (
     <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
-        <ImageBackground style={styles.bgImage} source={BackgroundImage}>
+        <ImageBackground
+          style={styles.backgroundImage}
+          source={BackgroundImage}
+        >
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
@@ -109,13 +112,13 @@ export default function LoginScreen() {
 
                 <TouchableOpacity
                   style={{
-                    ...styles.btn,
+                    ...styles.button,
                     display: isShowKeyboard ? "none" : "flex",
                   }}
                   activeOpacity={0.8}
                   onPress={onSubmit}
                 >
-                  <Text style={styles.btnTitle}>Увійти</Text>
+                  <Text style={styles.buttonTitle}>Увійти</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -124,7 +127,7 @@ export default function LoginScreen() {
                 >
                   <Text
                     style={{
-                      ...styles.toRegisterLink,
+                      ...styles.toRegistrationLink,
                       display: isShowKeyboard ? "none" : "flex",
                     }}
                   >

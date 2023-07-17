@@ -67,7 +67,10 @@ export default function RegistrationScreen() {
   return (
     <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
-        <ImageBackground style={styles.bgImage} source={BackgroundImage}>
+        <ImageBackground
+          style={styles.backgroundImage}
+          source={BackgroundImage}
+        >
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
@@ -133,13 +136,13 @@ export default function RegistrationScreen() {
 
                 <TouchableOpacity
                   style={{
-                    ...styles.btn,
+                    ...styles.button,
                     display: isShowKeyboard ? "none" : "flex",
                   }}
                   activeOpacity={0.8}
                   onPress={onSubmit}
                 >
-                  <Text style={styles.btnTitle}>Зареєстуватися</Text>
+                  <Text style={styles.buttonTitle}>Зареєстуватися</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity

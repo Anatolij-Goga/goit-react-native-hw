@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  bgImage: {
+  backgroundImage: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "flex-end",
@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
     lineHeight: 19,
     color: "#1B4371",
   },
-  btn: {
+  button: {
     backgroundColor: "#FF6C00",
     height: 51,
     borderRadius: 100,
@@ -58,13 +58,13 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  btnTitle: {
+  buttonTitle: {
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
     color: "#FFFFFF",
   },
-  toRegisterLink: {
+  toRegistrationLink: {
     color: "#1B4371",
     fontFamily: "Roboto-Regular",
     fontSize: 16,
