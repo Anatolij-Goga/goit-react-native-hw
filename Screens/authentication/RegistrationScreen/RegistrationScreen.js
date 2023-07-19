@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -17,17 +18,11 @@ import BackgroundImage from "../../../assets/images/image-background-375x812.jpg
 import GirlImage from "../../../assets/images/avatar-photo-120x120.png";
 import CrossSvg from "../../../assets/images/CrossSvg";
 
-import { useState, useEffect } from "react";
-
-const initialState = {
-  login: "",
-  email: "",
-  password: "",
-};
-
 export default function RegistrationScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const [state, setState] = useState(initialState);
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [dimensions, setDimensions] = useState(
     Dimensions.get("window").width - 16 * 2
   );
@@ -55,13 +50,7 @@ export default function RegistrationScreen() {
   const onSubmit = () => {
     hideKeyboard();
 
-    navigation.navigate("Home", {
-      login: state.login,
-      email: state.email,
-      password: state.password,
-    });
-
-    setState(initialState);
+    console.log("Credentials", `${login} + ${password} + ${email}`);
   };
 
   return (
@@ -97,10 +86,8 @@ export default function RegistrationScreen() {
                     placeholder="Логін"
                     onFocus={showKeyboard}
                     onBlur={hideKeyboard}
-                    value={state.login}
-                    onChangeText={(value) =>
-                      setState((prevState) => ({ ...prevState, login: value }))
-                    }
+                    value={name}
+                    onChangeText={setName}
                   />
                 </View>
                 <View style={{ marginTop: 16 }}>
@@ -109,10 +96,8 @@ export default function RegistrationScreen() {
                     placeholder="Адреса електронної пошти"
                     onFocus={showKeyboard}
                     onBlur={hideKeyboard}
-                    value={state.email}
-                    onChangeText={(value) =>
-                      setState((prevState) => ({ ...prevState, email: value }))
-                    }
+                    value={email}
+                    onChangeText={setEmail}
                   />
                 </View>
                 <View style={{ marginTop: 16 }}>
@@ -122,14 +107,9 @@ export default function RegistrationScreen() {
                     secureTextEntry={true}
                     onFocus={showKeyboard}
                     onBlur={hideKeyboard}
-                    value={state.password}
+                    value={password}
                     maxLength={20}
-                    onChangeText={(value) =>
-                      setState((prevState) => ({
-                        ...prevState,
-                        password: value,
-                      }))
-                    }
+                    onChangeText={setPassword}
                   />
                   <Text style={styles.showPassword}>Показати</Text>
                 </View>
