@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -12,18 +13,13 @@ import {
 } from "react-native";
 
 import { styles } from "./LoginScreen.styled";
+
 import BackgroundImage from "../../../assets/images/image-background-375x812.jpg";
-
-import { useState, useEffect } from "react";
-
-const initialState = {
-  email: "",
-  password: "",
-};
 
 export default function LoginScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const [state, setState] = useState(initialState);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [dimensions, setDimensions] = useState(
     Dimensions.get("window").width - 16 * 2
   );
@@ -51,12 +47,7 @@ export default function LoginScreen() {
   const onSubmit = () => {
     hideKeyboard();
 
-    navigation.navigate("Home", {
-      screen: "PostsScreen",
-      params: { email: state.email, password: state.password },
-    });
-
-    setState(initialState);
+    console.log("Credentials", `${email} + ${password}`);
   };
 
   return (
@@ -84,10 +75,8 @@ export default function LoginScreen() {
                     placeholder="Адреса електронної пошти"
                     onFocus={showKeyboard}
                     onBlur={hideKeyboard}
-                    value={state.email}
-                    onChangeText={(value) =>
-                      setState((prevState) => ({ ...prevState, email: value }))
-                    }
+                    value={email}
+                    onChangeText={setEmail}
                   />
                 </View>
 
@@ -98,14 +87,9 @@ export default function LoginScreen() {
                     secureTextEntry={true}
                     onFocus={showKeyboard}
                     onBlur={hideKeyboard}
-                    value={state.password}
+                    value={password}
                     maxLength={20}
-                    onChangeText={(value) =>
-                      setState((prevState) => ({
-                        ...prevState,
-                        password: value,
-                      }))
-                    }
+                    onChangeText={setPassword}
                   />
                   <Text style={styles.showPassword}>Показати</Text>
                 </View>
