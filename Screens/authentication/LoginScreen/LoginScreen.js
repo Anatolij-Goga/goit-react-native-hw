@@ -1,128 +1,119 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Text,
   View,
-  ImageBackground,
   TextInput,
   TouchableOpacity,
-  Platform,
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
-  Dimensions,
+  ImageBackground,
 } from "react-native";
+import useKeyboardStatus from "../../../hooks/keyboardStatus";
 
 import { styles } from "./LoginScreen.styled";
 
-import BackgroundImage from "../../../assets/images/image-background-375x812.jpg";
-
-export default function LoginScreen() {
-  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const [password, setPassword] = useState("");
+export default function LoginScreen({ navigation }) {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [dimensions, setDimensions] = useState(
-    Dimensions.get("window").width - 16 * 2
-  );
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(true);
+  const [focusName, setFocusName] = useState(false);
+  const [focusEmail, setFocusEmail] = useState(false);
+  const [focusPassword, setFocusPassword] = useState(false);
+  const [keyboardStatus] = useKeyboardStatus(Keyboard);
 
-  useEffect(() => {
-    const onChange = () => {
-      const width = Dimensions.get("window").width - 16 * 2;
-
-      setDimensions(width);
-    };
-    const subscription = Dimensions.addEventListener("change", onChange);
-
-    return () => subscription?.remove();
-  }, []);
-
-  const showKeyboard = () => {
-    setIsShowKeyboard(true);
+  const fokusToggle = (type) => {
+    if (type === "name") return setFocusName(!focusName);
+    if (type === "email") return setFocusEmail(!focusEmail);
+    if (type === "password") return setFocusPassword(!focusPassword);
   };
 
-  const hideKeyboard = () => {
-    setIsShowKeyboard(false);
+  const handalSubmit = () => {
+    const data = {
+      name,
+      email,
+      password,
+    };
+    console.log(data);
+
+    setName("");
+    setEmail("");
+    setPassword("");
     Keyboard.dismiss();
   };
 
-  const onSubmit = () => {
-    hideKeyboard();
-
-    console.log("Credentials", `${email} + ${password}`);
-  };
-
   return (
-    <TouchableWithoutFeedback onPress={hideKeyboard}>
-      <View style={styles.container}>
-        <ImageBackground
-          style={styles.backgroundImage}
-          source={BackgroundImage}
-        >
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS == "ios" ? "padding" : "margin"}
+    >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <ImageBackground
+            source={require("../../../assets/images/image-background-375x812.jpg")}
+            style={styles.image}
+          ></ImageBackground>
+          <View
+            style={{ ...styles.form, marginBottom: keyboardStatus ? -241 : 0 }}
           >
-            <View style={styles.whiteWall}>
-              <Text style={styles.title}>Увійти</Text>
-              <View
+            <Text style={styles.title}>Увійти</Text>
+
+            <TextInput
+              inputmode="email"
+              onChangeText={(text) => setEmail(text)}
+              onFocus={() => fokusToggle("email")}
+              onBlur={() => fokusToggle("email")}
+              style={{
+                ...styles.input,
+                marginBottom: 16,
+                borderColor: focusEmail ? "#FF6C00" : "#E8E8E8",
+              }}
+              value={email}
+              placeholder="Email"
+            />
+
+            <View style={styles.containerPassword}>
+              <TextInput
+                inputmode="text"
+                secureTextEntry={showPassword}
+                onFocus={() => fokusToggle("password")}
+                onBlur={() => fokusToggle("password")}
+                onChangeText={(text) => setPassword(text)}
                 style={{
-                  ...styles.form,
-                  marginBottom: isShowKeyboard ? 32 : 78,
-                  width: dimensions,
+                  ...styles.input,
+                  borderColor: focusPassword ? "#FF6C00" : "#E8E8E8",
                 }}
+                value={password}
+                placeholder="Password"
+              />
+              <TouchableOpacity
+                style={styles.showPassword}
+                onPress={() => setShowPassword(!showPassword)}
               >
-                <View style={{ marginTop: 32 }}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Адреса електронної пошти"
-                    onFocus={showKeyboard}
-                    onBlur={hideKeyboard}
-                    value={email}
-                    onChangeText={setEmail}
-                  />
-                </View>
-
-                <View style={{ marginTop: 16 }}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Пароль"
-                    secureTextEntry={true}
-                    onFocus={showKeyboard}
-                    onBlur={hideKeyboard}
-                    value={password}
-                    maxLength={20}
-                    onChangeText={setPassword}
-                  />
-                  <Text style={styles.showPassword}>Показати</Text>
-                </View>
-
-                <TouchableOpacity
-                  style={{
-                    ...styles.button,
-                    display: isShowKeyboard ? "none" : "flex",
-                  }}
-                  activeOpacity={0.8}
-                  onPress={onSubmit}
-                >
-                  <Text style={styles.buttonTitle}>Увійти</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={{ marginTop: 16, alignSelf: "center" }}
-                  onPress={() => navigation.navigate("Register")}
-                >
-                  <Text
-                    style={{
-                      ...styles.toRegistrationLink,
-                      display: isShowKeyboard ? "none" : "flex",
-                    }}
-                  >
-                    Немає акаунту? Зареєструватися
-                  </Text>
-                </TouchableOpacity>
-              </View>
+                <Text style={styles.textButton}>show</Text>
+              </TouchableOpacity>
             </View>
-          </KeyboardAvoidingView>
-        </ImageBackground>
-      </View>
-    </TouchableWithoutFeedback>
+            <TouchableOpacity
+              style={styles.submitButton}
+              onPress={handalSubmit}
+            >
+              <Text style={{ ...styles.textButton, color: "#fff" }}>
+                Увійти
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.loginLink}
+              onPress={() => navigation.navigate("Registration")}
+            >
+              <Text style={styles.textButton}>
+                Немає акаунту? Зареєструватися
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
