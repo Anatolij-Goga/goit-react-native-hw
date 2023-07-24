@@ -1,9 +1,12 @@
-import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+
+import { useState, useCallback } from "react";
 import { useFonts } from "expo-font";
-import { useCallback } from "react";
-import RegistrationScreen from "./Screens/authentication/RegistrationScreen/RegistrationScreen";
+import * as SplashScreen from "expo-splash-screen";
+import renderScreen from "./render";
 
 export default function App() {
+  const [statusLog, setStatusLog] = useState(false);
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
@@ -21,8 +24,8 @@ export default function App() {
   }
 
   return (
-    <React.StrictMode>
-      <RegistrationScreen onReady={onLayoutRootView} />
-    </React.StrictMode>
+    <NavigationContainer onLayout={onLayoutRootView}>
+      {renderScreen(statusLog)}
+    </NavigationContainer>
   );
 }
