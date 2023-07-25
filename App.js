@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useState, useCallback } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import renderScreen from "./render";
+import RouterScreen from "./router";
 
 export default function App() {
   const [statusLog, setStatusLog] = useState(false);
@@ -25,7 +25,7 @@ export default function App() {
 
   return (
     <NavigationContainer onLayout={onLayoutRootView}>
-      {renderScreen(statusLog)}
+      {RouterScreen(statusLog)}
     </NavigationContainer>
   );
 }

@@ -8,10 +8,10 @@ import Home from "./Screens/main/Home";
 const Auth = createStackNavigator();
 const Main = createStackNavigator();
 
-export default function renderScreen(params) {
-  if (params) {
+export default function RouterScreen(isAuth) {
+  if (!isAuth) {
     return (
-      <Auth.Navigator>
+      <Auth.Navigator initialRouteName="Login">
         <Auth.Screen
           options={{ headerShown: false }}
           name="Login"
