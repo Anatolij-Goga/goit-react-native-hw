@@ -86,7 +86,7 @@ export default function RegistrationScreen({ navigation }) {
                 borderColor: focusName ? "#FF6C00" : "#E8E8E8",
               }}
               value={name}
-              placeholder="Login"
+              placeholder="Логін"
             />
             <TextInput
               inputmode="email"
@@ -99,7 +99,7 @@ export default function RegistrationScreen({ navigation }) {
                 borderColor: focusEmail ? "#FF6C00" : "#E8E8E8",
               }}
               value={email}
-              placeholder="Email"
+              placeholder="Адреса електронної пошти"
             />
 
             <View style={styles.containerPassword}>
@@ -114,7 +114,7 @@ export default function RegistrationScreen({ navigation }) {
                   borderColor: focusPassword ? "#FF6C00" : "#E8E8E8",
                 }}
                 value={password}
-                placeholder="Password"
+                placeholder="Пароль"
               />
               <TouchableOpacity
                 style={styles.showPassword}

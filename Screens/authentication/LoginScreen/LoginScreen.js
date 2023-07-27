@@ -70,7 +70,7 @@ export default function LoginScreen({ navigation }) {
                 borderColor: focusEmail ? "#FF6C00" : "#E8E8E8",
               }}
               value={email}
-              placeholder="Email"
+              placeholder="Адреса електронної пошти"
             />
 
             <View style={styles.containerPassword}>
@@ -85,13 +85,13 @@ export default function LoginScreen({ navigation }) {
                   borderColor: focusPassword ? "#FF6C00" : "#E8E8E8",
                 }}
                 value={password}
-                placeholder="Password"
+                placeholder="Пароль"
               />
               <TouchableOpacity
                 style={styles.showPassword}
                 onPress={() => setShowPassword(!showPassword)}
               >
-                <Text style={styles.textButton}>show</Text>
+                <Text style={styles.textButton}>Показати</Text>
               </TouchableOpacity>
             </View>
             <TouchableOpacity
