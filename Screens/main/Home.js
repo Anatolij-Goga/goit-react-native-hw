@@ -2,14 +2,17 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import PostsScreen from "./PostsScreen";
+import PostsScreenNavigation from "./PostsScreenNavigation";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { useState } from "react";
 
 const Tabs = createBottomTabNavigator();
 
-export default function Home() {
+export default function Home({ navigation }) {
+  const [bar, setBar] = useState(true);
+
   return (
     <Tabs.Navigator screenOptions={styles.container}>
       <Tabs.Screen
@@ -21,19 +24,44 @@ export default function Home() {
               </View>
             );
           },
+
+          headerShown: false,
+          tabBarStyle: bar
+            ? {
+                display: "flex",
+                height: 83,
+                paddingTop: 9,
+                paddingBottom: 34,
+              }
+            : { display: "none" },
         })}
-        name={"Posts"}
-        component={PostsScreen}
-      />
+        name={"PostsScreenNavi"}
+        // component={PostsScreenNavi}
+      >
+        {(props) => <PostsScreenNavigation {...props} bar={setBar} />}
+      </Tabs.Screen>
       <Tabs.Screen
+        backBehavior="history"
         options={() => ({
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: () => {
             return (
               <View style={styles.plus}>
                 <AntDesign name="plus" size={24} color={"white"} />
               </View>
             );
           },
+          tabBarHideOnKeyboard: true,
+          tabBarStyle: {
+            display: "none",
+          },
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={navigation.goBack}
+              style={{ marginLeft: 16 }}
+            >
+              <Feather name="arrow-left" size={24} color="#212121CC" />
+            </TouchableOpacity>
+          ),
         })}
         name={"Create"}
         component={CreatePostsScreen}
@@ -57,14 +85,6 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    headerRight: () => (
-      <TouchableOpacity
-        onPress={() => alert("This is a button!")}
-        style={styles.buttonLogOut}
-      >
-        <Feather name="log-out" size={24} color="#BDBDBD" />
-      </TouchableOpacity>
-    ),
     headerStyle: {
       height: 88,
       borderBottomWidth: 1,
@@ -84,7 +104,7 @@ const styles = StyleSheet.create({
     },
     tabBarInactiveTintColor: "#212121",
   },
-  buttonLogOut: {
+  btnLogOut: {
     marginRight: 16,
   },
 
