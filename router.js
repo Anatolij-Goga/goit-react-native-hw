@@ -8,30 +8,30 @@ import Home from "./Screens/main/Home";
 const Auth = createStackNavigator();
 const Main = createStackNavigator();
 
-export default function RouterScreen(isAuth) {
-  if (!isAuth) {
+export default function renderScreen(params) {
+  if (params) {
     return (
-      <Auth.Navigator initialRouteName="Login">
-        <Auth.Screen
+      <Main.Navigator>
+        <Main.Screen
           options={{ headerShown: false }}
-          name="Login"
-          component={LoginScreen}
+          name="Home"
+          component={Home}
         />
-        <Auth.Screen
-          options={{ headerShown: false }}
-          name="Registration"
-          component={RegistrationScreen}
-        />
-      </Auth.Navigator>
+      </Main.Navigator>
     );
   }
   return (
-    <Main.Navigator>
-      <Main.Screen
+    <Auth.Navigator>
+      <Auth.Screen
         options={{ headerShown: false }}
-        name="Home"
-        component={Home}
+        name="Login"
+        component={LoginScreen}
       />
-    </Main.Navigator>
+      <Auth.Screen
+        options={{ headerShown: false }}
+        name="Registration"
+        component={RegistrationScreen}
+      />
+    </Auth.Navigator>
   );
 }
