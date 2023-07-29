@@ -9,35 +9,35 @@ import {
   TouchableWithoutFeedback,
   ImageBackground,
 } from "react-native";
-import useKeyboardStatus from "../../../hooks/keyboardStatus";
+import { useDispatch } from "react-redux";
 
 import { styles } from "./LoginScreen.styled";
 
+import useKeyboardStatus from "../../../hooks/keyboardStatus";
+import { authSignIn } from "../../../redux/auth/authOperations";
+
 export default function LoginScreen({ navigation }) {
-  const [name, setName] = useState("");
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
-  const [focusName, setFocusName] = useState(false);
   const [focusEmail, setFocusEmail] = useState(false);
   const [focusPassword, setFocusPassword] = useState(false);
   const [keyboardStatus] = useKeyboardStatus(Keyboard);
 
   const fokusToggle = (type) => {
-    if (type === "name") return setFocusName(!focusName);
     if (type === "email") return setFocusEmail(!focusEmail);
     if (type === "password") return setFocusPassword(!focusPassword);
   };
 
-  const handalSubmit = () => {
+  const handleSubmit = () => {
     const data = {
-      name,
       email,
       password,
     };
-    console.log(data);
 
-    setName("");
+    dispatch(authSignIn(data));
+
     setEmail("");
     setPassword("");
     Keyboard.dismiss();
@@ -73,7 +73,7 @@ export default function LoginScreen({ navigation }) {
               placeholder="Адреса електронної пошти"
             />
 
-            <View style={styles.containerPassword}>
+            <View style={styles.containerPasword}>
               <TextInput
                 inputmode="text"
                 secureTextEntry={showPassword}
@@ -88,28 +88,21 @@ export default function LoginScreen({ navigation }) {
                 placeholder="Пароль"
               />
               <TouchableOpacity
-                style={styles.showPassword}
+                style={styles.showPass}
                 onPress={() => setShowPassword(!showPassword)}
               >
-                <Text style={styles.textButton}>Показати</Text>
+                <Text style={styles.textBtn}>Показати</Text>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={handalSubmit}
-            >
-              <Text style={{ ...styles.textButton, color: "#fff" }}>
-                Увійти
-              </Text>
+            <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit}>
+              <Text style={{ ...styles.textBtn, color: "#fff" }}>Увійти</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.loginLink}
               onPress={() => navigation.navigate("Registration")}
             >
-              <Text style={styles.textButton}>
-                Немає акаунту? Зареєструватися
-              </Text>
+              <Text style={styles.textBtn}>Немає акаунту? Зареєструватися</Text>
             </TouchableOpacity>
           </View>
         </View>

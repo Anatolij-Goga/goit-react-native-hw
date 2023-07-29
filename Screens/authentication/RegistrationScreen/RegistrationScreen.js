@@ -10,12 +10,17 @@ import {
   TouchableWithoutFeedback,
   ImageBackground,
 } from "react-native";
-import useKeyboardStatus from "../../../hooks/keyboardStatus";
+
+import { useDispatch } from "react-redux";
 
 import { styles } from "./RegistrationScreen.styled";
 
+import useKeyboardStatus from "../../../hooks/keyboardStatus";
+import { authSignUp } from "../../../redux/auth/authOperations";
+
 export default function RegistrationScreen({ navigation }) {
-  const [name, setName] = useState("");
+  const dispatch = useDispatch();
+  const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
@@ -26,20 +31,20 @@ export default function RegistrationScreen({ navigation }) {
   const [avatar, setAvatar] = useState(true);
 
   const fokusToggle = (type) => {
-    if (type === "name") return setFocusName(!focusName);
+    if (type === "nickname") return setFocusName(!focusName);
     if (type === "email") return setFocusEmail(!focusEmail);
     if (type === "password") return setFocusPassword(!focusPassword);
   };
 
-  const handalSubmit = () => {
+  const handleSubmit = () => {
     const data = {
-      name,
+      nickname,
       email,
       password,
     };
-    console.log(data);
+    dispatch(authSignUp(data));
 
-    setName("");
+    setNickname("");
     setEmail("");
     setPassword("");
     Keyboard.dismiss();
@@ -77,15 +82,15 @@ export default function RegistrationScreen({ navigation }) {
             <Text style={styles.title}>Реєстрація</Text>
             <TextInput
               inputmode="text"
-              onChangeText={(text) => setName(text)}
-              onFocus={() => fokusToggle("name")}
-              onBlur={() => fokusToggle("name")}
+              onChangeText={(text) => setNickname(text)}
+              onFocus={() => fokusToggle("nickname")}
+              onBlur={() => fokusToggle("nickname")}
               style={{
                 ...styles.input,
                 marginBottom: 16,
                 borderColor: focusName ? "#FF6C00" : "#E8E8E8",
               }}
-              value={name}
+              value={nickname}
               placeholder="Логін"
             />
             <TextInput
@@ -102,7 +107,7 @@ export default function RegistrationScreen({ navigation }) {
               placeholder="Адреса електронної пошти"
             />
 
-            <View style={styles.containerPassword}>
+            <View style={styles.containerPasword}>
               <TextInput
                 inputmode="text"
                 secureTextEntry={showPassword}
@@ -117,17 +122,14 @@ export default function RegistrationScreen({ navigation }) {
                 placeholder="Пароль"
               />
               <TouchableOpacity
-                style={styles.showPassword}
+                style={styles.showPass}
                 onPress={() => setShowPassword(!showPassword)}
               >
-                <Text style={styles.textButton}>Показати</Text>
+                <Text style={styles.textBtn}>Показати</Text>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={handalSubmit}
-            >
-              <Text style={{ ...styles.textButton, color: "#fff" }}>
+            <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit}>
+              <Text style={{ ...styles.textBtn, color: "#fff" }}>
                 Зареєстуватися
               </Text>
             </TouchableOpacity>
@@ -136,7 +138,7 @@ export default function RegistrationScreen({ navigation }) {
               style={styles.loginLink}
               onPress={() => navigation.navigate("Login")}
             >
-              <Text style={styles.textButton}>Вже є акаунт? Увійти</Text>
+              <Text style={styles.textBtn}>Вже є акаунт? Увійти</Text>
             </TouchableOpacity>
           </View>
         </View>
