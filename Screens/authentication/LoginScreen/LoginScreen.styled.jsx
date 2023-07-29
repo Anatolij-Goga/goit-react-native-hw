@@ -15,31 +15,16 @@ export const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
   },
   form: {
-    position: "relative",
     paddingLeft: 16,
     paddingRight: 16,
-    paddingBottom: 78,
-    paddingTop: 92,
+    paddingBottom: 144,
+    paddingTop: 32,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     marginTop: "auto",
-  },
-  avatar: {
-    backgroundColor: "#F6F6F6",
-    width: 120,
-    height: 120,
-    borderRadius: 16,
-    position: "absolute",
-    top: -60,
-  },
-  icon: {
-    position: "absolute",
-    width: 25,
-    left: 107,
-    top: 81,
   },
   title: {
     color: "#212121",
@@ -60,24 +45,24 @@ export const styles = StyleSheet.create({
     color: "#212121",
     fontFamily: "Roboto-Regular",
   },
-  containerPassword: {
+  containerPasword: {
     position: "relative",
     width: "100%",
     marginBottom: 43,
   },
-  showPassword: {
+  showPass: {
     backgroundColor: "transparent",
     position: "absolute",
     right: 0,
     padding: 16,
   },
-  textButton: {
+  textBtn: {
     color: "#1B4371",
     fontSize: 16,
     lineHeight: 19,
     fontFamily: "Roboto-Regular",
   },
-  submitButton: {
+  submitBtn: {
     backgroundColor: "#FF6C00",
     borderRadius: 100,
     width: "100%",

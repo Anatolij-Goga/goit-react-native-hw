@@ -60,24 +60,24 @@ export const styles = StyleSheet.create({
     color: "#212121",
     fontFamily: "Roboto-Regular",
   },
-  containerPassword: {
+  containerPasword: {
     position: "relative",
     width: "100%",
     marginBottom: 43,
   },
-  showPassword: {
+  showPass: {
     backgroundColor: "transparent",
     position: "absolute",
     right: 0,
     padding: 16,
   },
-  textButton: {
+  textBtn: {
     color: "#1B4371",
     fontSize: 16,
     lineHeight: 19,
     fontFamily: "Roboto-Regular",
   },
-  submitButton: {
+  submitBtn: {
     backgroundColor: "#FF6C00",
     borderRadius: 100,
     width: "100%",
