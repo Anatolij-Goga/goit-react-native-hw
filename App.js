@@ -1,12 +1,13 @@
-import { NavigationContainer } from "@react-navigation/native";
-
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import RouterScreen from "./router";
+
+import { Provider } from "react-redux";
+// import { PersistGate } from "redux-persist/integration/react";
+import { store } from "./redux/store";
+import Main from "./components/Main";
 
 export default function App() {
-  const [statusLog, setStatusLog] = useState(false);
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
@@ -24,8 +25,10 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer onLayout={onLayoutRootView}>
-      {RouterScreen(statusLog)}
-    </NavigationContainer>
+    <Provider store={store}>
+      {/* <PersistGate> */}
+      <Main onLayoutRootView={onLayoutRootView} />
+      {/* </PersistGate> */}
+    </Provider>
   );
 }
