@@ -144,7 +144,7 @@ export default function CreatePostsScreen({ navigation }) {
             </View>
           </Camera>
           <Text style={{ ...styles.text, marginRight: "auto" }}>
-            {photo ? "Edit snap" : "Download snap"}
+            {photo ? "Редагувати фото" : "Завантажте фото"}
           </Text>
           <View style={styles.form}>
             <TextInput
@@ -157,7 +157,7 @@ export default function CreatePostsScreen({ navigation }) {
               }}
               type="text"
               name="name"
-              placeholder="Title..."
+              placeholder="Назва..."
               placeholderTextColor="#BDBDBD"
             />
             <View style={styles.inputContainerLocation}>
@@ -168,7 +168,7 @@ export default function CreatePostsScreen({ navigation }) {
                 style={{ ...styles.input, marginLeft: 4, paddingRight: 28 }}
                 type="text"
                 name="location"
-                placeholder="Location..."
+                placeholder="Місцевість..."
                 placeholderTextColor="#BDBDBD"
               />
             </View>
@@ -188,7 +188,7 @@ export default function CreatePostsScreen({ navigation }) {
                   color: photo !== null && namePost !== "" ? "#fff" : "#BDBDBD",
                 }}
               >
-                Publish
+                Опубліковати
               </Text>
             </TouchableOpacity>
           </View>

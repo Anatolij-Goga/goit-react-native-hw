@@ -2,12 +2,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import PostsScreenNavigation from "./PostsScreenNavigation";
+import PostsScreenNavi from "./PostsScreenNavi";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { useState } from "react";
-
 const Tabs = createBottomTabNavigator();
 
 export default function Home({ navigation }) {
@@ -38,7 +37,7 @@ export default function Home({ navigation }) {
         name={"PostsScreenNavi"}
         // component={PostsScreenNavi}
       >
-        {(props) => <PostsScreenNavigation {...props} bar={setBar} />}
+        {(props) => <PostsScreenNavi {...props} bar={setBar} />}
       </Tabs.Screen>
       <Tabs.Screen
         backBehavior="history"
